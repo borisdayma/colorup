@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Core
+      title: Color Space
       url: /core
     output: web
     title: colorup
