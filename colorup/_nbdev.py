@@ -10,7 +10,8 @@ index = {"PILImageLAB": "00_core.ipynb",
          "TensorAB": "00_core.ipynb",
          "Tuple_L_AB": "00_core.ipynb",
          "Split_L_AB": "00_core.ipynb",
-         "AdjustType": "00_core.ipynb"}
+         "AdjustType": "00_core.ipynb",
+         "encodes": "00_core.ipynb"}
 
 modules = ["core.py"]
 
