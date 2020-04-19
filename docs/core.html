@@ -1,12 +1,12 @@
 ---
 
-title: module name here
+title: Core
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "API details."
-description: "API details."
+summary: "Basic functions for ColorUp"
+description: "Basic functions for ColorUp"
 ---
 <!--
 
@@ -30,28 +30,50 @@ description: "API details."
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nbdev.export</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">notebook2script</span><span class="p">()</span>
-</pre></div>
+</div>
+    {% endraw %}
 
-    </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Color-Space-Transforms">Color Space Transforms<a class="anchor-link" href="#Color-Space-Transforms"> </a></h2>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Images are typically encoded in the RGB space. However, other color spaces have been developped for different purposes.</p>
+<p>We want to predict a colorized picture from a black &amp; white version. Some color spaces have one of their channels corresponding to black &amp; white, which is convenient as we then have to predict only 2 channels.</p>
+<p>In order to define our neural network and loss, we would like to use a color space where the difference between two colors is more closely related to visual perception. The <a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB color space</a> was developped for this purpose and has one of his channel corresponding directly to the black &amp; white version.</p>
+<p><em>Note: some more recent color spaces have been developed such as <a href="https://en.wikipedia.org/wiki/CIECAM02">CIECAM02</a> to improve the correlation with visual perception. However we currently rely on <a href="https://github.com/python-pillow/Pillow">Pillow</a> which does not handle these color space transformations.</em></p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Converted 00_core.ipynb.
-Converted index.ipynb.
-</pre>
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="PILImageLAB" class="doc_header"><code>class</code> <code>PILImageLAB</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L11" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PILImageLAB</code>() :: <code>PILImage</code></p>
+</blockquote>
+<p>PILImage in the LAB space</p>
+
 </div>
+
 </div>
 
 </div>
@@ -60,6 +82,317 @@ Converted index.ipynb.
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="RGBToLAB" class="doc_header"><code>class</code> <code>RGBToLAB</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGBToLAB</code>(<strong><code>enc</code></strong>=<em><code>None</code></em>, <strong><code>dec</code></strong>=<em><code>None</code></em>, <strong><code>split_idx</code></strong>=<em><code>None</code></em>, <strong><code>order</code></strong>=<em><code>None</code></em>) :: <code>Transform</code></p>
+</blockquote>
+<p>Convert a PILImage from RGB to LAB space</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TensorLAB" class="doc_header"><code>class</code> <code>TensorLAB</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L34" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TensorLAB</code>(<strong><code>x</code></strong>, <strong>**<code>kwargs</code></strong>) :: <code>TensorImage</code></p>
+</blockquote>
+<p>Tensor for images in the LAB space</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="decodes" class="doc_header"><code>decodes</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L46" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decodes</code>(<strong><code>o</code></strong>:<a href="/colorup/core#TensorLAB"><code>TensorLAB</code></a>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TensorL" class="doc_header"><code>class</code> <code>TensorL</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L50" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TensorL</code>(<strong><code>x</code></strong>, <strong>**<code>kwargs</code></strong>) :: <a href="/colorup/core#TensorLAB"><code>TensorLAB</code></a></p>
+</blockquote>
+<p>Tensor containing the L channel of an image</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="TensorAB" class="doc_header"><code>class</code> <code>TensorAB</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L57" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TensorAB</code>(<strong><code>x</code></strong>, <strong>**<code>kwargs</code></strong>) :: <a href="/colorup/core#TensorLAB"><code>TensorLAB</code></a></p>
+</blockquote>
+<p>Tensor containing A &amp; B channels of an image</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Tuple_L_AB" class="doc_header"><code>class</code> <code>Tuple_L_AB</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L68" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Tuple_L_AB</code>(<strong><code>x</code></strong>=<em><code>None</code></em>, <strong>*<code>rest</code></strong>) :: <code>Tuple</code></p>
+</blockquote>
+<p>Tuple with L channel and A &amp; B channels</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Split_L_AB" class="doc_header"><code>class</code> <code>Split_L_AB</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L79" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Split_L_AB</code>(<strong><code>enc</code></strong>=<em><code>None</code></em>, <strong><code>dec</code></strong>=<em><code>None</code></em>, <strong><code>split_idx</code></strong>=<em><code>None</code></em>, <strong><code>order</code></strong>=<em><code>None</code></em>) :: <code>ItemTransform</code></p>
+</blockquote>
+<p>Split TensorLAB into TensorL (input) &amp; TensorAB (output)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="AdjustType" class="doc_header"><code>class</code> <code>AdjustType</code><a href="https://github.com/borisdayma/colorup/tree/master/colorup/core.py#L88" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>AdjustType</code>(<strong><code>enc</code></strong>=<em><code>None</code></em>, <strong><code>dec</code></strong>=<em><code>None</code></em>, <strong><code>split_idx</code></strong>=<em><code>None</code></em>, <strong><code>order</code></strong>=<em><code>None</code></em>) :: <code>Transform</code></p>
+</blockquote>
+<p>Cast A &amp; B channels to correct type to have continuous values</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A &amp; B channels are in the [0, 255] range, 0 being the neutral value.</p>
+<p>However, a few tests show that 127 &amp; 128 are the two extrema so we use <a href="/colorup/core#AdjustType"><code>AdjustType</code></a> to recast to [-128, 127] range with those two values as extrema.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@IntToFloatTensor</span>
+<span class="k">def</span> <span class="nf">encodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">:</span><span class="n">TensorLAB</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">div_</span><span class="p">(</span><span class="mf">255.</span><span class="p">)</span>
+
+<span class="nd">@IntToFloatTensor</span>
+<span class="k">def</span> <span class="nf">decodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">:</span><span class="n">TensorAB</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="mf">255.</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="o">-</span><span class="mf">128.</span><span class="p">,</span> <span class="mf">127.</span><span class="p">)</span><span class="o">.</span><span class="n">char</span><span class="p">()</span>
+
+<span class="nd">@IntToFloatTensor</span>
+<span class="k">def</span> <span class="nf">decodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">:</span><span class="n">TensorL</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="mf">255.</span><span class="p">)</span><span class="o">.</span><span class="n">byte</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@Normalize</span>
+<span class="k">def</span> <span class="nf">encodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">TensorAB</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span>
+
+<span class="nd">@Normalize</span>
+<span class="k">def</span> <span class="nf">decodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">TensorAB</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We normalize only the input channel <a href="/colorup/core#TensorL"><code>TensorL</code></a> since the output <a href="/colorup/core#TensorAB"><code>TensorAB</code></a> is already in [-0.5,0.5] range.</p>
+
+</div>
+</div>
+</div>
 </div>
  
 

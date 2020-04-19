@@ -2,9 +2,17 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"PILImageLAB": "00_core.ipynb",
+         "RGBToLAB": "00_core.ipynb",
+         "TensorLAB": "00_core.ipynb",
+         "decodes": "00_core.ipynb",
+         "TensorL": "00_core.ipynb",
+         "TensorAB": "00_core.ipynb",
+         "Tuple_L_AB": "00_core.ipynb",
+         "Split_L_AB": "00_core.ipynb",
+         "AdjustType": "00_core.ipynb"}
 
-modules = []
+modules = ["core.py"]
 
 doc_url = "https://borisdayma.github.io/colorup/"
 

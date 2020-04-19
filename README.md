@@ -1,33 +1,11 @@
 # ColorUp
-> Colorizer with fastai2
+> Colorizer with fastai2 using GAN
 
 
-This file will become your README and also the index of your documentation.
+ColorUp is a colorizer developed with fastai v2.
 
-## Install
-
-`pip install colorup`
+Inputs are black & white images (or any image for which we will extract only the "black & white" channel) and outputs are colored images.
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
-
-```python
-1+1
-```
-
-
-
-
-    2
-
-
-
-```python
-from nbdev.export import *
-notebook2script()
-```
-
-    Converted 00_core.ipynb.
-    Converted index.ipynb.
-
+ColorUp is still in active development.
