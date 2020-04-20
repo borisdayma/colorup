@@ -1,6 +1,7 @@
 {
   "colorup": {
     "Overview": "/",
-    "Color Space": "/core"
+    "Color Space": "/core",
+    "Dataset": "/data"
   }
 }

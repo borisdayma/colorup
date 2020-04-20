@@ -11,9 +11,11 @@ index = {"PILImageLAB": "00_core.ipynb",
          "Tuple_L_AB": "00_core.ipynb",
          "Split_L_AB": "00_core.ipynb",
          "AdjustType": "00_core.ipynb",
-         "encodes": "00_core.ipynb"}
+         "encodes": "00_core.ipynb",
+         "show_path_images": "01_data.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "data.py"]
 
 doc_url = "https://borisdayma.github.io/colorup/"
 

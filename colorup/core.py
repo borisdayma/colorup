@@ -9,12 +9,12 @@ import PIL.ImageCms
 
 # Cell
 class PILImageLAB(PILImage):
-    '''PILImage in the LAB space'''
+    "PILImage in the LAB space"
     pass
 
 # Cell
 class RGBToLAB(Transform):
-    '''Convert a PILImage from RGB to LAB space'''
+    "Convert a PILImage from RGB to LAB space"
     order = ToTensor.order - 1  # perform before ToTensor
     rgb_profile = PIL.ImageCms.createProfile("sRGB")
     lab_profile  = PIL.ImageCms.createProfile("LAB")
@@ -31,11 +31,11 @@ class RGBToLAB(Transform):
 
 # Cell
 class TensorLAB(TensorImage):
-    '''Tensor for images in the LAB space'''
-    makeDisplayTensor = noop
+    "Tensor for images in the LAB space"
+    display = noop
 
     def show(self, **kwargs):
-        displayTensor = self.makeDisplayTensor()
+        displayTensor = self.display()
         pilImageLAB = ToTensor().decode(displayTensor)
         return RGBToLAB().decode(pilImageLAB).show(**kwargs)
 
@@ -47,16 +47,16 @@ def decodes(self, o:TensorLAB): return PILImageLAB(Image.fromarray(np.uint8(o.pe
 
 # Cell
 class TensorL(TensorLAB):
-    '''Tensor containing the L channel of an image'''
-    def makeDisplayTensor(self):
+    "Tensor containing the L channel of an image"
+    def display(self):
         blank_channel = torch.zeros_like(self[0])
         return TensorLAB(torch.stack((self[0], blank_channel, blank_channel), dim=0))
 
 # Cell
 class TensorAB(TensorLAB):
-    '''Tensor containing A & B channels of an image'''
-    def makeDisplayTensor(self):
-        '''juxtapose both channels'''
+    "Tensor containing A & B channels of an image"
+    def display(self):
+        "juxtapose both channels"
         blank_channel = torch.zeros_like(self[0])
         l_channel = torch.full_like(self[0], 128)
         img_A = torch.stack((l_channel, self[0], blank_channel), dim=0)
@@ -65,27 +65,23 @@ class TensorAB(TensorLAB):
 
 # Cell
 class Tuple_L_AB(Tuple):
-    '''Tuple with L channel and A & B channels'''
-    def __new__(cls, x=None, *rest):
-        '''Ensure each element is converted to correct type'''
-        x = TensorL(x[0]), TensorAB(x[1])
-        return super().__new__(cls, x)
-    def makeDisplayTensor(self):
+    "Tuple with L channel and A & B channels"
+    def display(self):
         img_L, img_AB = self
         return TensorLAB(torch.cat((img_L, img_AB), dim=0))
 
 # Cell
 class Split_L_AB(ItemTransform):
-    '''Split TensorLAB into TensorL (input) & TensorAB (output)'''
+    "Split TensorLAB into TensorL (input) & TensorAB (output)"
     order = ToTensor.order + 1  # perform after ToTensor
     def encodes(self, x):
         return Tuple_L_AB((TensorL(x[0][None]), TensorAB(x[1:])))
     def decodes(self, x):
-        return Tuple_L_AB(x).makeDisplayTensor()
+        return Tuple_L_AB(x).display()
 
 # Cell
 class AdjustType(Transform):
-    '''Cast A & B channels to correct type to have continuous values'''
+    "Cast A & B channels to correct type to have continuous values"
     order = Split_L_AB.order + 1
     def encodes(self, x:(TensorAB)):
         return x.char()
