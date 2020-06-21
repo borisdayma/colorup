@@ -5,6 +5,7 @@ __all__ = ['PILImageLAB', 'RGBToLAB', 'TensorLAB', 'decodes', 'TensorL', 'Tensor
 
 # Cell
 from fastai2.vision.all import *
+from fastai2.callback.wandb import _make_plt
 import PIL.ImageCms
 
 # Cell
@@ -107,3 +108,42 @@ def encodes(self, x:TensorAB): return x
 
 @Normalize
 def decodes(self, x:TensorAB): return x
+
+# Cell
+@typedispatch
+def show_batch(x:TensorL, y:TensorAB, samples, ctxs=None, max_n=10, nrows=None, ncols=None, figsize=None, **kwargs):
+    if ctxs is None: ctxs = get_grid(min(len(samples), max_n), nrows=nrows, ncols=ncols, add_vert=1, figsize=figsize, double=True)
+    ctxs[0::2] = [b.show(ctx=c, title='Input', **kwargs) for b,c,_ in zip(samples.itemgot(0),ctxs[0::2],range(max_n))]
+    ctxs[1::2] = [Tuple_L_AB((l, ab)).display().show(
+        ctx=c, title='Target', **kwargs) for l,ab,c,_ in zip(samples.itemgot(0), samples.itemgot(1), ctxs[1::2],range(max_n))]
+    return ctxs
+
+# Cell
+@typedispatch
+def show_results(x:TensorL, y:TensorAB, samples, outs, ctxs=None, max_n=10, figsize=None, **kwargs):
+    if ctxs is None: ctxs = get_grid(3*min(len(samples), max_n), ncols=3, figsize=figsize)
+    ctxs[0::3] = [b.show(ctx=c, title='Input', **kwargs) for b,c,_ in zip(samples.itemgot(0),ctxs[0::3],range(max_n))]
+    ctxs[1::3] = [Tuple_L_AB((l, ab)).display().show(
+        ctx=c, title='Prediction', **kwargs) for l,ab,c,_ in zip(samples.itemgot(0), outs.itemgot(0), ctxs[1::3],range(max_n))]
+    ctxs[2::3] = [Tuple_L_AB((l, ab)).display().show(
+        ctx=c, title='Target', **kwargs) for l,ab,c,_ in zip(samples.itemgot(0), samples.itemgot(1), ctxs[2::3],range(max_n))]
+    return ctxs
+
+# Cell
+@typedispatch
+def wandb_process(x:TensorL, y, samples, outs):
+    res_input, res_prediction, res_truth = [],[],[]
+    for s,o in zip(samples, outs):
+        fig_input = make_plt(s[0])
+        res_input.append(wandb.Image(fig_input, caption="Input"))
+        plt.close(fig_input)
+
+        fig_prediction=make_plt(Tuple_L_AB((s[0], o[0])).display())
+        res_prediction.append(wandb.Image(fig_prediction, caption="Prediction"))
+        plt.close(fig_prediction)
+
+        fig_truth=make_plt(Tuple_L_AB((s[0], s[1])).display())
+        res_truth.append(wandb.Image(fig_truth, caption="Ground Truth"))
+        plt.close(fig_truth)
+
+    return {"Inputs": res_input, "Predictions": res_prediction, "Ground Truth": res_truth}
