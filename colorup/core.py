@@ -134,15 +134,15 @@ def show_results(x:TensorL, y:TensorAB, samples, outs, ctxs=None, max_n=10, figs
 def wandb_process(x:TensorL, y, samples, outs):
     res_input, res_prediction, res_truth = [],[],[]
     for s,o in zip(samples, outs):
-        fig_input = make_plt(s[0])
+        fig_input = _make_plt(s[0])
         res_input.append(wandb.Image(fig_input, caption="Input"))
         plt.close(fig_input)
 
-        fig_prediction=make_plt(Tuple_L_AB((s[0], o[0])).display())
+        fig_prediction = _make_plt(Tuple_L_AB((s[0], o[0])).display())
         res_prediction.append(wandb.Image(fig_prediction, caption="Prediction"))
         plt.close(fig_prediction)
 
-        fig_truth=make_plt(Tuple_L_AB((s[0], s[1])).display())
+        fig_truth = _make_plt(Tuple_L_AB((s[0], s[1])).display())
         res_truth.append(wandb.Image(fig_truth, caption="Ground Truth"))
         plt.close(fig_truth)
 
